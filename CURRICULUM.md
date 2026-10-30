@@ -1,6 +1,6 @@
 # CURRICULUM — Core React (MOOC4ALL / mooc4class)
 
-> **Status: PROPOSED – awaiting Albert's final approval.** No lesson is written until Albert approves this outline.
+> **Status: APPROVED by Albert, 2026-10-30.**
 > Drafted by react-lead, 2026-10-30, on branch `drafts`; revised the same day with Albert's answers to the open questions (see [`DECISIONS.md`](DECISIONS.md)).
 
 ## Basis

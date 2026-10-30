@@ -2,13 +2,13 @@
 
 Status values: `planned` → `drafted` (react-writer) → `edited` (react-editor) → `ready for Albert` (react-lead). Albert approves and merges to `main`.
 
-> Curriculum is **PROPOSED – awaiting Albert's final approval** (open questions answered 2026-10-30). No lesson is drafted before approval.
+> Curriculum **APPROVED by Albert, 2026-10-30**.
 
 21 lessons: 20 core + 1 optional. `[T n]` = React.md topic number. Labs are a separate track and not tracked here.
 
 | Lesson | File | Status | Notes |
 |---|---|---|---|
-| 1.1 What is React and why is it so relevant? [T 1] | `lessons/01-01-what-is-react.md` | planned |  |
+| 1.1 What is React and why is it so relevant? [T 1] | `lessons/01-01-what-is-react.md` | planned | assigned to react-writer 2026-10-30 |
 | 1.2 JSX: describing the UI [T 2] | `lessons/01-02-jsx-describing-the-ui.md` | planned |  |
 | 1.3 What is not React [T 3] | `lessons/01-03-what-is-not-react.md` | planned | Briefly teaches routing, styling, data fetching (one tiny example each) |
 | 1.4 React is a component tree rendering [T 4] | `lessons/01-04-component-tree-rendering.md` | planned | "UI as a tree" framing to write fresh |

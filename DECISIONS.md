@@ -24,3 +24,15 @@ Dated log of team decisions. Newest at the bottom. "Pending Albert" = needs his 
 15. **Vite is the only recommended setup.** No CRA and no other build tools or frameworks in lessons. *Decided by Albert.*
 16. **Lessons are plain GitHub markdown** (confirms decision 8). *Decided by Albert.*
 17. Curriculum status stays **PROPOSED – awaiting Albert's final approval**. STYLE-GUIDE.md and LESSON-TEMPLATE.md unchanged (persona changes on hold).
+
+### 2026-10-30 10:50 (Europe/Madrid) — Curriculum approved; Tom persona choices (decided by Albert)
+
+18. **CURRICULUM.md APPROVED by Albert, 2026-10-30** (21 lessons: 20 core + 1 optional). Replaces the PROPOSED status in decision 17. Lesson writing can start; 1.1 is assigned to react-writer. *Decided by Albert.*
+19. **Author persona "Tom"**, as described in `/workspace/TOM-STYLE-GUIDE.md` (react-lead's working draft, not in this repo). Albert's choices: *Decided by Albert.*
+    - No epigraphs.
+    - Address the reader as **"you"** in concept lessons and **"we"** in labs.
+    - Code comments: only ✅ / ❌ markers.
+    - Runnable examples live in `examples/` and are linked from lessons via StackBlitz GitHub import.
+    - Emoji may be used freely.
+    - No note about Tom in README.md.
+20. **On hold:** updating STYLE-GUIDE.md and LESSON-TEMPLATE.md to reflect decision 19 waits for Albert's go-ahead. Until then both files stay unchanged.
