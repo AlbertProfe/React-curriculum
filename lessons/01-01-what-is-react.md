@@ -3,7 +3,7 @@ lesson: "01-01"
 title: "What is React and why is it so relevant?"
 module: "01 — Foundation: what React actually is"
 react-md-topic: 1
-status: drafted
+status: edited
 sources:
   albert:
     - https://albertprofe.dev/reactjs/reactjs-what-principles.html
@@ -29,7 +29,7 @@ React is a JavaScript **library for building user interfaces**: you describe wha
 
 - say what React is: a library for user interfaces that looks after the **view layer** only
 - explain the difference between **imperative** and **declarative** code
-- name the **four reasons** React matters: components, the declarative style, one-way data flow, and a virtual representation of the UI
+- name the **four reasons** React matters: components, the declarative style, one-way data flow, and a virtual representation of the user interface
 
 **Before you start:** you need basic JavaScript (variables, functions, objects). If any of that feels rusty, have a look at Albert's [JavaScript basics](https://albertprofe.dev/reactjs/reactjs-js-basics.html) and [functions](https://albertprofe.dev/reactjs/reactjs-js-functions.html) pages first. You don't need any React yet. ⏱️ About 40 minutes, exercises included.
 
@@ -45,10 +45,10 @@ React's big idea fits on a sticky note:
 
 > **You describe *what* the UI should look like for the data you have right now. React works out *how* to change the real screen to match.**
 
-Hold on to that sentence. 🍵 Everything else in this course (JSX, components, props, state, effects) is a way of making that idea practical.
+Hold on to that sentence. 🍵 Everything else in this course is a way of making that idea practical. In this lesson you'll meet the first two pieces: **JSX**, the way you write the description, and the **render cycle**, the loop React runs to keep the screen matching it.
 
 > [!NOTE]
-> I've written React since about 2014, back when components were written as JavaScript *classes*. Today React code is written with **function components** and **Hooks**, and that is all you'll see in this course.
+> I've written React since about 2014, back when components were written as JavaScript *classes*. Today React code is written with **function components** and **Hooks** (React functions whose names start with `use`; you'll meet the first one in Example 2), and that is all you'll see in this course.
 
 ## 2 The problem: keeping the screen in sync by hand
 
@@ -86,12 +86,12 @@ board.append(title, label, button);
 
 What happens here, step by step:
 
-1. We find an empty box on the page (`board`) and keep the stock in a variable.
-2. We **create** each DOM object by hand: a heading, a paragraph and a button, and we fill in their text.
-3. We **listen** for clicks on the button. On each click we lower the stock, then **we must remember** to rewrite the paragraph, and **we must remember** to disable the button at zero.
-4. Finally we put the three objects into the box.
+1. You find an empty box on the page (`board`) and keep the stock in a variable.
+2. You **create** each DOM object by hand: a heading, a paragraph and a button, and you fill in their text.
+3. You **listen** for clicks on the button. On each click you lower the stock, then **you must remember** to rewrite the paragraph, and **you must remember** to disable the button at zero.
+4. Finally you put the three objects into the box.
 
-It works. 🙂 Run it in the [imperative-vs-declarative example on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-01/imperative-vs-declarative) and click until the tomatoes run out.
+It works. 🙂 Run it on **StackBlitz**, an online editor that runs the whole project in your browser, with no installing: open the [imperative-vs-declarative example](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-01/imperative-vs-declarative) and click until the tomatoes run out.
 
 This style is called **imperative**: you give the browser orders, one after another, like a recipe written for a cook who has never seen a kitchen. 👨‍🍳 *Take the bread. Cut two slices. Toast them. Rub half a tomato on each. Add oil. Add salt.*
 
@@ -122,7 +122,7 @@ React itself comes in two packages. `react` knows how to describe a UI. `react-d
 
 📘 **Component**: a reusable piece of UI. In React, a component is a **JavaScript function that returns a description of what to show**. A page is built by putting components inside other components, like stalls inside a market, and products inside each stall.
 
-Because they are functions, you can name them, reuse them and combine them. Component names always start with a capital letter (`Tomatoes`, `App`), so React can tell them apart from plain HTML tags like `<li>`.
+Because they are functions, you can name them, reuse them and combine them. Component names always start with a capital letter (`Tomatoes`, `App`), so React can tell them apart from plain **HTML** tags like `<li>`. (HTML, HyperText Markup Language, is the tag language every web page is written in.)
 
 ### 3.3 JSX: writing the picture of the plate
 
@@ -152,7 +152,7 @@ flowchart LR
   U -. "the next click" .-> T
 ```
 
-TODO: image (a hand-drawn version of this render-cycle loop with the tomato stall; no matching image exists in references/).
+<!-- image: a hand-drawn version of this render-cycle loop with the tomato stall (no matching image exists in references/; mermaid rendering is an open question for Albert) -->
 
 1. **Trigger.** Something asks for a render: the app starts, or a piece of state changes.
 2. **Render.** React calls your component functions: all of them on the first render, and afterwards the component whose state changed, plus the components inside it. Each one returns JSX, which becomes a tree of React elements.
@@ -164,7 +164,7 @@ TODO: image (a hand-drawn version of this render-cycle loop with the tomato stal
 
 ## 4 Example 1: your first React screen
 
-Time for working code. 🧑‍🍳 We build a tiny market board with two products. Open the [hello-market example on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-01/hello-market) and keep it next to this page.
+Time for working code. 🧑‍🍳 You'll build a tiny market board with two products. Open the [hello-market example on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-01/hello-market) and keep it next to this page.
 
 Every example in this course is a small **Vite** project. Vite is a **build tool**: a program that, while you work, translates your JSX into plain JavaScript the browser understands and serves your app on a local address. The first file that runs is `main.jsx`.
 
@@ -182,9 +182,9 @@ createRoot(document.getElementById('root')).render(
 );
 ```
 
-1. We import `createRoot` from `react-dom/client`: the bridge between React and the browser's DOM.
+1. You import `createRoot` from `react-dom/client`: the bridge between React and the browser's DOM.
 2. `document.getElementById('root')` finds an empty `<div id="root">` in `index.html`. That `div` is the **root**: the one spot on the page that React will look after.
-3. `.render(<App />)` asks React to render our top component, `App`, inside the root. This is the **initial render** from the cycle above.
+3. `.render(<App />)` asks React to render your top component, `App`, inside the root. This is the **initial render** from the cycle above.
 4. `StrictMode` is a development helper that checks your components for common mistakes. It shows nothing on screen; you'll see why it exists in [lesson 1.5, Purity](01-05-purity.md).
 
 Now the market board itself.
@@ -224,11 +224,11 @@ What you see in the browser is a heading, *Tom's vegetable stall*, and a list wi
 
 <!-- screenshot: the hello-market example in the browser, showing the heading and the two-item list -->
 
-Look at the shape of the code and you'll see a **tree**: `App` at the top, with `Tomatoes` and `Artichokes` as its children. That tree is the **component tree**, and the whole of React is built around it ([lesson 1.4](01-04-component-tree-rendering.md)).
+Look at the shape of the code and you'll see a **tree**: `App` at the top, with `Tomatoes` and `Artichokes` as its children. That is the **component tree**, the subject of [lesson 1.4](01-04-component-tree-rendering.md).
 
 ## 5 Example 2: the same stall, declarative
 
-Now let's rebuild the tomato stall from section 2 with React, and put the two versions side by side. Both live in the same project: [imperative-vs-declarative on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-01/imperative-vs-declarative). Click both buttons and watch them behave the same way.
+Here is the tomato stall from section 2 again, rebuilt with React and placed side by side with the plain version. Both live in the same project: [imperative-vs-declarative on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-01/imperative-vs-declarative). Click both buttons and watch them behave the same way.
 
 The React version needs one new word.
 
@@ -276,7 +276,7 @@ Compare this with `imperative.js`. There, the click handler had to **remember** 
 > A handy way to remember it: in React, **the UI is a function of the data**. Same data in, same picture out. Dalí's clocks may melt, but they melt the same way every time you look at the painting. 🕰️
 
 > [!NOTE]
-> Prefer your own computer to StackBlitz? Download the example folder, then run `npm install` and `npm run dev` inside it. To start a fresh project of your own with Vite, run `npm create vite@latest my-app -- --template react`. (react.dev's [Build a React App from Scratch](https://react.dev/learn/build-a-react-app-from-scratch) lists Vite among a few build tools, and its snippet uses the TypeScript template `react-ts`; this course sticks to plain JavaScript, so you use `react`.)
+> Prefer your own computer to StackBlitz? Download the example folder, then run `npm install` and `npm run dev` inside it (npm is the package manager that comes with Node.js). To start a fresh project of your own with Vite, run `npm create vite@latest my-app -- --template react`. (react.dev's [Build a React App from Scratch](https://react.dev/learn/build-a-react-app-from-scratch) lists Vite among a few build tools, and its snippet uses the TypeScript template `react-ts`; this course sticks to plain JavaScript, so you use `react`.)
 
 ## 6 Back to the whole: four reasons React matters
 
@@ -296,9 +296,9 @@ A word on the last row. For years this in-memory description was called the **vi
 *The virtual DOM loop. "Diffing" means comparing the old and new trees; "reconciliation" is React's name for that whole comparison process; a component "marked dirty" is one that needs to re-render. Image from Albert's [render and virtual DOM page](https://albertprofe.dev/reactjs/reactjs-what-render-dom.html).*
 
 > [!NOTE]
-> You'll notice react.dev's current docs rarely say "virtual DOM". Why? Let's look at what they say instead. They describe the steps from the point of view of *your* code: something **triggers** a render, React **renders** (calls your components), and React **commits** the differences to the DOM ([Render and Commit](https://react.dev/learn/render-and-commit)). That is the same loop, told with words you can see in your own components. This course uses the render-and-commit words from lesson 3.2 onwards.
+> You'll notice react.dev's current docs rarely say "virtual DOM". Why? Look at what they say instead. They describe the steps from the point of view of *your* code: something **triggers** a render, React **renders** (calls your components), and React **commits** the differences to the DOM ([Render and Commit](https://react.dev/learn/render-and-commit)). That is the same loop, told with words you can see in your own components. This course uses the render-and-commit words from lesson 3.2 onwards.
 
-And the third row, one-way data flow, is worth one more picture. At the market, the stallholder decides the price and writes it on every label. A label never changes the stallholder's price list on its own; if a customer wants a discount, they **ask** the stallholder. In React, a parent component passes data down to its children (through **props**, [lesson 2.1](02-01-passing-props.md)), and a child that wants a change asks the parent through a function. react.dev's [Thinking in React](https://react.dev/learn/thinking-in-react) walks through a whole small app built this way; it's a good read once you've finished Module 02.
+The third row, one-way data flow, deserves one more market picture. The stallholder decides the price and writes it on every label. A label never changes the price list on its own; a customer who wants a discount **asks** the stallholder. In React, a parent component passes data down to its children (through **props**, [lesson 2.1](02-01-passing-props.md)), and a child that wants a change asks the parent through a function. react.dev's [Thinking in React](https://react.dev/learn/thinking-in-react) builds a whole small app this way; read it once you've finished Module 02.
 
 So, what is React? A **library** for the **view layer** that lets you **describe** your UI as a **tree of components**, written in **JSX**, and that runs the **render cycle** to keep the real screen in step with your data. 🌳
 
@@ -353,7 +353,7 @@ export default function App() {
 }
 ```
 
-You declare a new function with a capital letter, then use it as `<Calcots />` in the place where you want it. The order of the tags in the JSX is the order on screen. We spelled the component name without the `ç` so it's easy to type on any keyboard; the text inside the `<li>` can use any characters you like.
+You declare a new function with a capital letter, then use it as `<Calcots />` in the place where you want it. The order of the tags in the JSX is the order on screen. The component name is spelled without the `ç` so it's easy to type on any keyboard; the text inside the `<li>` can use any characters you like.
 
 </details>
 
@@ -420,16 +420,22 @@ export default function App() {
 }
 ```
 
-In the imperative version you change the **click handler**: you have to know *when* the label must be rewritten and do it at the right moment (and if you forget, or later add a "restock" button, the label can go wrong). In the React version you change the **description**: you say what the paragraph shows for any stock, and the click handler stays untouched. There are other ways to choose what to show in JSX; they're the topic of [lesson 2.2, Conditional rendering](02-02-conditional-rendering.md).
+Imperative: you change the **click handler**, and you must know *when* to rewrite the label (add a "restock" button later and the label can go wrong). React: you change the **description** of what the paragraph shows for any stock, and the click handler stays untouched. More ways to choose what to show come in [lesson 2.2, Conditional rendering](02-02-conditional-rendering.md).
 
 </details>
 
 ### 8.3 Draw the render cycle
 
-On paper, draw the four steps of the render cycle for **one click** on "Sell 1 kg" in the React stall, going from 3 kg to 2 kg. Label each arrow with what happens, and circle the one part of the real DOM that changes.
+First, predict: 🔮 starting from 5 kg, what does the React stall show after **five** clicks, and what happens when you try a sixth?
+
+Then, on paper, draw the four steps of the render cycle for **one click** on "Sell 1 kg" in the React stall, going from 3 kg to 2 kg. Label each arrow with what happens, and circle the one part of the real DOM that changes.
 
 <details>
 <summary>Solution</summary>
+
+**Prediction:** after five clicks the paragraph says *In stock: 0 kg* and the button is disabled, because the description says `disabled={stock === 0}`. A disabled button doesn't fire clicks, so the sixth try triggers nothing: no trigger, no render.
+
+**Drawing:**
 
 1. **Trigger:** the click runs `handleSell`, which calls `setStock(2)`.
 2. **Render:** React calls `App`; with `stock` equal to `2`, the JSX describes a heading, a paragraph "In stock: 2 kg" and an enabled button.
@@ -456,14 +462,14 @@ In **three sentences**, explain to a friend who has never coded what React is. U
 Pick one and argue **both** sides with a classmate.
 
 1. "React is a library, not a framework." Does that difference matter to you as a developer, or is it only a label?
-2. For years web developers kept HTML, CSS and JavaScript in separate files. JSX puts markup and logic in the same component. Is that a step forward or a step back? (Albert's [JSX page, §2–3](https://albertprofe.dev/reactjs/reactjs-what-jsx.html) gives one side.)
+2. For years web developers kept HTML, CSS (Cascading Style Sheets, the language for colours and layout) and JavaScript in separate files. JSX puts markup and logic in the same component. Is that a step forward or a step back? (Albert's [JSX page, §2–3](https://albertprofe.dev/reactjs/reactjs-what-jsx.html) gives one side.)
 3. Can you think of a situation where writing imperative code is still the right choice?
 
 <details>
 <summary>Points to consider</summary>
 
 1. With a library, *you* decide how the app is organised and which other tools to add (routing, data fetching, styling). That gives freedom, and it also means more decisions. Frameworks built on top of React make many of those decisions for you.
-2. The old split was by **technology** (HTML here, JS there). Components split by **piece of UI** instead: everything about the tomato stall lives in one place. Ask yourself which split makes it easier to find and fix a bug in one stall.
+2. The old split was by **technology** (HTML here, JavaScript there). Components split by **piece of UI** instead: everything about the tomato stall lives in one place. Ask yourself which split makes it easier to find and fix a bug in one stall.
 3. Declarative code still runs on imperative steps underneath: React's own job in step 4 is imperative DOM work. Some tasks need direct steps, such as moving focus into a text box or drawing on a canvas; React has "escape hatches" for them, which are beyond this course's core.
 
 </details>
