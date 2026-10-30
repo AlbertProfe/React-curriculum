@@ -47,3 +47,11 @@ Dated log of team decisions. Newest at the bottom. "Pending Albert" = needs his 
 ### 2026-10-30 — Lead decision (react-lead)
 
 25. **Keep `package-lock.json` in `examples/`** so runnable examples install reproducibly.
+
+### 2026-10-30 — Albert's answer as relayed by react-editor (decided by Albert)
+
+26. **react-editor asks Albert before every push to `drafts`** (no standing permission). *Decided by Albert.*
+
+### 2026-10-30 — Lead decision (react-lead)
+
+27. **Acronyms are explained at first use in each lesson** (each lesson stands alone).

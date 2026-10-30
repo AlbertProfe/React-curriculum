@@ -9,8 +9,8 @@ Status values: `planned` → `drafted` (react-writer) → `edited` (react-editor
 | Lesson | File | Status | Notes |
 |---|---|---|---|
 | 1.1 What is React and why is it so relevant? [T 1] | `lessons/01-01-what-is-react.md` | ready for Albert | drafted by react-writer (04d8bef), edited by react-editor (9817e48), 2026-10-30 |
-| 1.2 JSX: describing the UI [T 2] | `lessons/01-02-jsx-describing-the-ui.md` | planned | assigned to react-writer 2026-10-30 |
-| 1.3 What is not React [T 3] | `lessons/01-03-what-is-not-react.md` | planned | Briefly teaches routing, styling, data fetching (one tiny example each) |
+| 1.2 JSX: describing the UI [T 2] | `lessons/01-02-jsx-describing-the-ui.md` | ready for Albert | drafted by react-writer (5df109c), edited by react-editor (d512daa, c10c770), 2026-10-30; open: raw-html example vs link, name react/jsx-runtime?, §4 screenshot |
+| 1.3 What is not React [T 3] | `lessons/01-03-what-is-not-react.md` | planned | assigned to react-writer 2026-10-30 |
 | 1.4 React is a component tree rendering [T 4] | `lessons/01-04-component-tree-rendering.md` | planned | "UI as a tree" framing to write fresh |
 | 1.5 Purity of components [T 19] | `lessons/01-05-purity.md` | planned | Moved from React.md topic 19 (decided by Albert) |
 | 2.1 Passing props to a component [T 5] | `lessons/02-01-passing-props.md` | planned |  |
