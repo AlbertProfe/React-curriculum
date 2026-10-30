@@ -1,0 +1,134 @@
+---
+source: https://albertprofe.dev/reactjs/rjslab5-1.html
+title: "Lab#RE05-1: chat & websockets"
+section: "React JS: Laboratories"
+published: "Tuesday, June 1, 2021"
+modified: "Friday, November 1, 2024"
+categories: ["reactjs", "lab", "Lab#RE05"]
+captured: 2026-10-30
+---
+
+> Source: <https://albertprofe.dev/reactjs/rjslab5-1.html>  
+> Captured 2026-10-30 from albertprofe.dev (author: Albert Profe). Reference copy for the course team; not lesson content.
+
+# Lab#RE05-1: chat & websockets
+
+📘 **React JS Lab#RE05-1: chat & websockets**
+
+In this lab, we will be using:
+
+- the `react-router-dom`, which is a package with bindings for using React Router in web applications:
+- `websockets`, provided by **ReactJS** framework and:
+  - useState
+  - useEffect
+  - useContext
+- `AWS`, **Amanzon Web Services**, architecture as a server-side:
+  - Lambda
+  - DynamoDB
+  - API Gateway
+  - Cloudwatch
+
+Reference:
+
+- [codesanbox myChat](https://codesandbox.io/s/mychat-1-ktru2t?file=/src/chat/SocketProvider.js:1278-1317)
+- [myChat docs, backend & frontend](https://sites.google.com/view/devopscifo/labs/1-chat-app)
+
+## 1 Overall
+
+`WebSockets` is a communication protocol that enables real-time, bidirectional communication between a client (usually a web browser) and a server. It provides a persistent connection that allows for efficient data exchange without the need for repeated HTTP requests.
+
+`WebSockets` are particularly useful for applications that require instant updates, such as real-time chat applications, collaborative editing tools, and live data streaming.
+
+In React, you can leverage the power of `WebSockets` by using libraries like `Socket.IO` or the native `WebSocket` API. These libraries enable you to establish a WebSocket connection, send and receive messages, and handle events for seamless real-time communication in your React applications.
+
+## 2 Project Architecture
+
+We could use [Spring Boot](https://github.com/AlbertProfe/cifojava2022-5/wiki/Library8-:-Websockets-Spring-Boot-Project-with-JS-Web-Client-SockJS-&-Stomp) as a server for our `MyChat app`, instead we are going to design an `AWS architecture`:
+
+[![General architecture](https://albertprofe.dev/images/reactjs/AWS-Lambda-and-DynamoDB-Architecture.png)](https://albertprofe.dev/images/reactjs/AWS-Lambda-and-DynamoDB-Architecture.png "General architecture")
+
+General architecture
+
+## 3 Websockets
+
+Note
+
+`WebSocket` is a computer communications protocol, providing full-duplex communication channels over a single TCP connection.
+
+The current API specification allowing web applications to use this protocol is known as **WebSockets**.
+
+`WebSockets` are a communication protocol that provides a persistent, full-duplex connection between a client and a server over a single, long-lived connection. Unlike traditional HTTP connections, which are stateless and require the client to initiate each request, `WebSockets` allow for real-time, bidirectional communication between the client and the server.
+
+Here are some basic ideas and features of `WebSockets`:
+
+1. **Persistent Connection**: `WebSockets` establish a persistent connection between the client and the server, allowing for continuous communication without the need to send multiple HTTP requests.
+2. **Full-Duplex Communication**: `WebSockets` enable full-duplex communication, meaning both the client and the server can send and receive data simultaneously. This bidirectional nature allows for real-time updates and interactive applications.
+3. **Lightweight Overhead**: The `WebSocket` protocol has a minimal overhead compared to HTTP. After the initial handshake, the data exchange occurs using a much smaller header, resulting in reduced latency and bandwidth usage.
+4. **Event-Driven Architecture**: `WebSockets` use an event-driven architecture, where the server can push data to the connected clients without the need for explicit requests. This makes it suitable for applications that require real-time updates, such as chat applications, live dashboards, and multiplayer games.
+5. **Wide Browser Support**: `WebSockets` are supported by modern web browsers, including Chrome, Firefox, Safari, and Edge. This allows for cross-browser compatibility and ensures that `WebSockets` can be utilized in a variety of web-based applications.
+6. **Security**: `WebSocket` connections can be secured using encryption protocols such as SSL/TLS, ensuring the confidentiality and integrity of the transmitted data.
+7. **Compatibility with Existing Web Infrastructure**: `WebSockets` can work alongside existing web infrastructure and technologies. They can be seamlessly integrated into web applications that utilize other protocols like HTTP or REST, allowing for a combination of traditional request-response communication and real-time updates through `WebSockets`.
+
+`WebSockets` provide a powerful mechanism for building interactive and real-time web applications, enabling efficient and seamless communication between clients and servers.
+
+### 3.1 Websocket vs. HTTP
+
+`WebSocket` is distinct from `HTTP`. Both protocols are located at **layer 7 in the OSI model** and depend on `TCP` at layer 4.
+
+Although they are different, the [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) is designed to work over HTTP ports 443 and 80 as well as to support HTTP proxies and intermediaries, thus making it compatible with HTTP. To achieve compatibility, the WebSocket handshake uses the HTTP Upgrade header to change from the HTTP protocol to the WebSocket protocol.
+
+[![Websocket vs HTTP](https://albertprofe.dev/images/reactjs/ws-http.png)](https://albertprofe.dev/images/reactjs/ws-http.png "Websocket vs HTTP")
+
+Websocket vs HTTP
+
+### 3.2 Websocket client
+
+#### 3.2.1 Instance methods
+
+`WebSocket.close()`: Closes the connection.
+
+`WebSocket.send()`: Enqueues data to be transmitted.
+
+#### 3.2.2 Events
+
+Listen to these events using `addEventListener()` or by assigning an event listener to the oneventname property of this interface.
+
+`close`: Fired when a connection with a WebSocket is closed. Also available via the onclose property
+
+`error`: Fired when a connection with a WebSocket has been closed because of an error, such as when some data couldn’t be sent. Also available via the onerror property.
+
+`message`: Fired when data is received through a WebSocket. Also available via the onmessage property.
+
+`open`: Fired when a connection with a WebSocket is opened. Also available via the onopen property.
+
+#### 3.2.3 Example: Websocket client
+
+```js
+// Creates new WebSocket object with a wss URI as the parameter
+const socket = new WebSocket('wss://game.example.com/ws/updates');
+
+// Fired when a connection with a WebSocket is opened
+socket.onopen = function () {
+  setInterval(function() {
+    if (socket.bufferedAmount == 0)
+      socket.send(getUpdateData());
+  }, 50);
+};
+
+// Fired when data is received through a WebSocket
+socket.onmessage = function(event) {
+  handleUpdateData(event.data);
+};
+
+// Fired when a connection with a WebSocket is closed
+socket.onclose = function(event) {
+  onSocketClose(event);
+};
+
+// Fired when a connection with a WebSocket has been closed because of an error
+socket.onerror = function(event) {
+  onSocketError(event);
+};
+```
+
+Back to top
