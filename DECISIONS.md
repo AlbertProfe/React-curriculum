@@ -55,3 +55,10 @@ Dated log of team decisions. Newest at the bottom. "Pending Albert" = needs his 
 ### 2026-10-30 — Lead decision (react-lead)
 
 27. **Acronyms are explained at first use in each lesson** (each lesson stands alone).
+
+### 2026-10-30 — Lesson 1.3 decisions, Albert's answers as relayed by react-editor (decided by Albert)
+
+28. **1.3 includes a `<details>` block "fetch done properly"** showing cleanup and error handling, plus a `todays-special-safe` runnable example. *Decided by Albert.*
+29. **1.3 §3.2 lists UI component libraries:** MUI, Ant Design, Semantic UI React (with a React 19 caution), shadcn/ui, React Aria. *Decided by Albert.*
+30. **React Router is installed as `npm i react-router`** (v8; no `react-router-dom`, no `-D`). *Decided by Albert.*
+31. **Albert will update his own router page** ([app-router](https://albertprofe.dev/reactjs/reactjs-app-router.html)); the course does not change it. *Decided by Albert.*
