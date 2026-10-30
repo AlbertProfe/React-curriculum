@@ -126,7 +126,7 @@ Because they are functions, you can name them, reuse them and combine them. Comp
 
 ### 3.3 JSX: writing the picture of the plate
 
-📘 **JSX**: short for **JavaScript XML** (XML is a tag-based markup language, a close cousin of HTML). JSX is a syntax that lets you write HTML-like tags **inside JavaScript**. It is not HTML: a build tool translates every JSX tag into a JavaScript function call that creates a **React element**.
+📘 **JSX**: a **syntax extension for JavaScript** that lets you write HTML-like tags **inside JavaScript**. People often read the name as *JavaScript XML* (XML is a tag-based markup language, a close cousin of HTML), though React's docs call it a syntax extension. It is not HTML: a build tool translates every JSX tag into a JavaScript function call that creates a **React element**.
 
 📘 **React element**: a small, plain JavaScript object that describes one piece of UI, such as "a `<p>` with the text *In stock: 5 kg*". Elements are cheap to create and are only descriptions; on their own they don't touch the screen.
 
@@ -155,9 +155,9 @@ flowchart LR
 TODO: image (a hand-drawn version of this render-cycle loop with the tomato stall; no matching image exists in references/).
 
 1. **Trigger.** Something asks for a render: the app starts, or a piece of state changes.
-2. **Render.** React calls your component functions. Each one returns JSX, which becomes a tree of React elements.
-3. **Compare.** React compares the new tree with the one from the last render and finds what changed.
-4. **Update.** React changes only those parts of the real DOM. The rest of the page is left alone.
+2. **Render.** React calls your component functions: all of them on the first render, and afterwards the component whose state changed, plus the components inside it. Each one returns JSX, which becomes a tree of React elements.
+3. **Compare.** React compares the new tree with the one from the last render and works out what changed.
+4. **Update.** React changes only those parts of the real DOM. If nothing changed, it touches nothing. The rest of the page is left alone.
 
 > [!IMPORTANT]
 > You never write steps 2 to 4 yourself. Your job is to **describe the UI for the current data**; React's job is to **make the real screen match**. react.dev calls steps 2–3 *render* and step 4 *commit*; you'll study them in [lesson 3.2, Render and commit](03-02-render-and-commit.md) and on react.dev's [Render and Commit](https://react.dev/learn/render-and-commit) page.
@@ -276,7 +276,7 @@ Compare this with `imperative.js`. There, the click handler had to **remember** 
 > A handy way to remember it: in React, **the UI is a function of the data**. Same data in, same picture out. Dalí's clocks may melt, but they melt the same way every time you look at the painting. 🕰️
 
 > [!NOTE]
-> Prefer your own computer to StackBlitz? Download the example folder, then run `npm install` and `npm run dev` inside it. To start a fresh project of your own, React's docs point to Vite: `npm create vite@latest my-app -- --template react` (see react.dev's [Build a React App from Scratch](https://react.dev/learn/build-a-react-app-from-scratch)).
+> Prefer your own computer to StackBlitz? Download the example folder, then run `npm install` and `npm run dev` inside it. To start a fresh project of your own with Vite, run `npm create vite@latest my-app -- --template react`. (react.dev's [Build a React App from Scratch](https://react.dev/learn/build-a-react-app-from-scratch) lists Vite among a few build tools, and its snippet uses the TypeScript template `react-ts`; this course sticks to plain JavaScript, so you use `react`.)
 
 ## 6 Back to the whole: four reasons React matters
 
@@ -286,7 +286,7 @@ Step back from the code and look at the market again. 🌅 Albert's course outli
 |---|---|---|
 | 🧩 **Component model** → reusable and composable | UI is built from small functions you can name, reuse and nest | `Tomatoes`, `Artichokes` inside `App` (Example 1) |
 | 🖼️ **Declarative style** → fewer bugs | you describe the result for the current data; React does the steps, so there are fewer places to forget an update | the React stall vs `imperative.js` (Example 2) |
-| ⬇️ **One-way (unidirectional) data flow** → predictable | data flows **down** the component tree, from parents to children, so you can always find where a value comes from | `App` owns `stock`; everything it renders reads from it |
+| ⬇️ **One-way (unidirectional) data flow** → predictable | data flows **down** the component tree, from parents to children, so you can always find where a value comes from | `stock` lives in `App` and flows down into the JSX it returns; passing it on to child components comes with props in lesson 2.1 |
 | 🪞 **Virtual representation of the UI** → fast updates | React keeps a lightweight description of the UI in memory, compares versions, and touches only what changed in the real DOM | steps 2–4 of the render cycle |
 
 A word on the last row. For years this in-memory description was called the **virtual DOM** (sometimes written VDOM), and you'll see that name on Albert's [render and virtual DOM page](https://albertprofe.dev/reactjs/reactjs-what-render-dom.html) and in many articles. The idea is the same one you followed in the render cycle:
@@ -296,7 +296,7 @@ A word on the last row. For years this in-memory description was called the **vi
 *The virtual DOM loop. "Diffing" means comparing the old and new trees; "reconciliation" is React's name for that whole comparison process; a component "marked dirty" is one that needs to re-render. Image from Albert's [render and virtual DOM page](https://albertprofe.dev/reactjs/reactjs-what-render-dom.html).*
 
 > [!NOTE]
-> Why do react.dev's current docs rarely say "virtual DOM"? Let's understand rather than judge. The term was useful for explaining *how* React worked inside, but it made people think about internals. Today the docs teach the model you need to write good code: **trigger, render, commit** ([Render and Commit](https://react.dev/learn/render-and-commit)). Both describe the same loop; this course uses the render-and-commit words from lesson 3.2 onwards.
+> You'll notice react.dev's current docs rarely say "virtual DOM". Why? Let's look at what they say instead. They describe the steps from the point of view of *your* code: something **triggers** a render, React **renders** (calls your components), and React **commits** the differences to the DOM ([Render and Commit](https://react.dev/learn/render-and-commit)). That is the same loop, told with words you can see in your own components. This course uses the render-and-commit words from lesson 3.2 onwards.
 
 And the third row, one-way data flow, is worth one more picture. At the market, the stallholder decides the price and writes it on every label. A label never changes the stallholder's price list on its own; if a customer wants a discount, they **ask** the stallholder. In React, a parent component passes data down to its children (through **props**, [lesson 2.1](02-01-passing-props.md)), and a child that wants a change asks the parent through a function. react.dev's [Thinking in React](https://react.dev/learn/thinking-in-react) walks through a whole small app built this way; it's a good read once you've finished Module 02.
 
