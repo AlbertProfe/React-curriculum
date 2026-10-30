@@ -325,6 +325,80 @@ export default function App() {
 >
 > You'll write it properly in 5.1.
 
+<details>
+<summary>Peek: the same fetch, done properly</summary>
+
+This is the shape react.dev uses in its [useEffect reference](https://react.dev/reference/react/useEffect#fetching-data-with-effects), with error handling added. Lesson 5.1 covers every line in depth; for now, read it as a preview. Open the [todays-special-safe example on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-03/todays-special-safe) to run it.
+
+**`App.jsx` (part 1: memory and the Effect)**
+
+```jsx
+import { useEffect, useState } from 'react';
+
+export default function App() {
+  const [special, setSpecial] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(function () {
+    let ignore = false;
+    fetch('/special.json')
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('The kitchen answered ' + response.status);
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        if (!ignore) {
+          setSpecial(data);
+        }
+      })
+      .catch(function (problem) {
+        if (!ignore) {
+          setError(problem.message);
+        }
+      });
+    return function () {
+      ignore = true;
+    };
+  }, []);
+```
+
+**`App.jsx` (part 2: what to show)**
+
+```jsx
+  if (error !== null) {
+    return <p>❌ No special today: {error}</p>;
+  }
+
+  if (special === null) {
+    return <p>⏳ Asking the kitchen…</p>;
+  }
+
+  return (
+    <main>
+      <h1>Today's special 🐟</h1>
+      <h2>{special.dish}</h2>
+      <p>
+        {special.price} € at {special.stall}
+      </p>
+    </main>
+  );
+}
+```
+
+1. There are now two memory slots: `special` for the data and `error` for a problem. Both start as `null`.
+2. `let ignore = false;` is a flag, a true-or-false value the Effect can check later. It starts as `false`.
+3. The first `.then` checks `response.ok`, which is `true` only when the server says the request worked. If not, `throw` stops this chain of steps and passes an **error** (an object that describes what went wrong) further down.
+4. The second `.then` receives the data and stores it, but only if `ignore` is still `false`.
+5. `.catch` receives any error from the steps above: a failed request, a bad status or a file that isn't JSON. It stores the error's `message` in state, again only if `ignore` is still `false`.
+6. The function the Effect returns is its **cleanup function**. React calls it when the component leaves the screen, and in development during the `StrictMode` setup → cleanup → setup check. It sets `ignore` to `true`, so an answer that arrives too late is thrown away.
+7. The component now has three possible screens: an error message, the "Asking the kitchen" line while it waits, or the dish once the data is there.
+
+Try exercise 9.3 on the simple version first. Then make the same typo here: this time the screen tells you what went wrong instead of waiting forever.
+
+</details>
+
 ## 7 Back to the whole: a market of neighbours
 
 Step back to the market hall. In all three examples, React did the same job: it called your components and kept the screen in step with what they returned. Everything else came from a neighbour:
@@ -463,7 +537,7 @@ In **todays-special**, change `'/special.json'` to `'/specials.json'` (with an e
 
 The screen stays on "⏳ Asking the kitchen…" forever. There is no `specials.json`, so Vite's development server answers with the app's `index.html` page instead. `response.json()` can't read HTML as JSON, so the promise fails, and the console shows an error. In Chrome it reads like `Unexpected token '<', "<!doctype "... is not valid JSON`; other browsers word it differently. Notice that `fetch` itself didn't complain: the server did answer, only with the wrong file. `setSpecial` is never called, so `special` stays `null`.
 
-That's the "error state" react.dev talks about: a real app would show a message instead of waiting forever. Data libraries, and the Effects lesson, help with that.
+That's the "error state" react.dev talks about: a real app would show a message instead of waiting forever. Data libraries, and the Effects lesson, help with that. The "Peek" block in section 6 shows one way: repeat the typo there and compare.
 
 </details>
 
