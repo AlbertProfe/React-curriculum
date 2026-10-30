@@ -3,7 +3,7 @@ lesson: "01-03"
 title: "What is not React"
 module: "01 — Foundation: what React actually is"
 react-md-topic: 3
-status: drafted
+status: edited
 sources:
   albert:
     - https://albertprofe.dev/reactjs/reactjs-what-jsx.html
@@ -50,7 +50,7 @@ In [lesson 1.1](01-01-what-is-react.md#31-a-library-and-only-for-the-view) you s
 
 Albert's JSX page, §4, quotes Ceddia on this. In short, React has no opinion at all about how things look. If you search for "how to centre a box in React", you are really asking a CSS question. 🎯
 
-You also met **library** and **framework** in 1.1. A **library** is a set of tools *your* code calls when it needs them. A **framework** decides the structure of your app and calls *your* code. You'll still see React called a framework now and then, because the word is often used loosely for "a big tool". react.dev calls it a library, and so does this course. Some frameworks are *built on top of* React and make this lesson's choices for you. This course uses Vite instead and picks each neighbour by hand, so you can see the joins.
+You also met **library** and **framework** in 1.1. A **library** is a set of tools *your* code calls when it needs them. A **framework** decides the structure of your app and calls *your* code. You'll still see React called a framework now and then, because the word is often used loosely for "a big tool". react.dev calls it a library, and so does this course. Some frameworks are *built on top of* React and make this lesson's choices for you. This course uses Vite (the build tool from [lesson 1.1](01-01-what-is-react.md)) instead and picks each neighbour by hand, so you can see the joins.
 
 Here is React with its neighbours:
 
@@ -95,7 +95,7 @@ A Vite app is a **single-page application**, or SPA: the browser loads one HTML 
 
 A **router** reads the URL and decides which component to show. When you click one of its links, it changes the URL *without* asking the server for a new page, and React redraws only what changed. The page never blinks.
 
-React has no router. react.dev's [routing section](https://react.dev/learn/build-a-react-app-from-scratch#routing) explains what a router does and suggests two libraries, React Router and TanStack Router. This lesson uses [React Router](https://reactrouter.com/), the one on Albert's [router page](https://albertprofe.dev/reactjs/reactjs-app-router.html), in what its docs call **declarative mode**: you describe the routes as components inside your JSX. You add it with npm (Node's package manager):
+React has no router. react.dev's [routing section](https://react.dev/learn/build-a-react-app-from-scratch#routing) explains what a router does and suggests two libraries, React Router and TanStack Router. This lesson uses [React Router](https://reactrouter.com/), the one on Albert's [router page](https://albertprofe.dev/reactjs/reactjs-app-router.html), in what its docs call **declarative mode**: you describe the routes as components inside your [JSX](01-01-what-is-react.md#33-jsx-writing-the-picture-of-the-plate). You add it with npm (Node's package manager):
 
 ```bash
 npm install react-router
@@ -176,6 +176,8 @@ export default function Home() {
 
 1. A page is an ordinary component. It doesn't know it's a page; the router decides when to show it. `Recipes.jsx` is the same, with a short list of dishes.
 
+<!-- screenshot: the two-pages example on /recipes, showing the menu and the recipe list, with /recipes in the address bar -->
+
 > [!TIP]
 > Inside your app, use `<Link>` instead of `<a href>`. An `<a>` tag asks the server for a brand-new page, so the whole app restarts. A `<Link>` stays inside the single page.
 
@@ -252,6 +254,8 @@ export default function Stall() {
 3. The width of the red bar depends on data, so it goes in `style`. `cherries.ripeness + '%'` builds the text `"80%"`. Change `ripeness` to `30` and the bar shrinks.
 4. The empty `<div />` closes itself, as every JSX tag must ([lesson 1.2](01-02-jsx-describing-the-ui.md)).
 
+<!-- screenshot: the styled-stall example, showing the bordered card, the green price and the red ripeness bar at 80% -->
+
 ## 6 Example 3: today's special, from a JSON file
 
 Tom keeps today's special in a small JSON file, and the app shows it. 🐟 Open the [todays-special example on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-03/todays-special).
@@ -306,6 +310,8 @@ export default function App() {
 3. `useEffect(function () { … }, [])` is the Effect. React runs the function *after* the component is on the screen, and the empty `[]` means "only after the first time". When the promise arrives, `.then(setSpecial)` puts the data into state.
 4. On the first draw, `special` is still `null`, so the component returns the "Asking the kitchen" line. ⏳
 5. On the second draw, the data is there, and you see the dish, the price and the stall.
+
+<!-- screenshot: the todays-special example after loading, showing "Suquet de peix" and the price line -->
 
 > [!NOTE]
 > Open the **Network** panel in your browser's developer tools and reload. In development you'll see `special.json` requested twice. That's React's `StrictMode` (the wrapper in `main.jsx`). In development only, it runs each Effect once, cleans it up, and runs it again, to help you catch Effects that don't clean up after themselves. The production build asks once. Lessons [1.5](01-05-purity.md) and [5.1](05-01-effects.md) explain why.
