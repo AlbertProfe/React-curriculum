@@ -14,6 +14,8 @@ sources:
   react-dev:
     - https://react.dev/learn/build-a-react-app-from-scratch
     - https://react.dev/learn/writing-markup-with-jsx
+    - https://react.dev/reference/react-dom/components/common#applying-css-styles
+    - https://react.dev/reference/react/useEffect#fetching-data-with-effects
 ---
 
 # What is not React
@@ -93,14 +95,14 @@ A Vite app is a **single-page application**, or SPA: the browser loads one HTML 
 
 A **router** reads the URL and decides which component to show. When you click one of its links, it changes the URL *without* asking the server for a new page, and React redraws only what changed. The page never blinks.
 
-React has no router. react.dev's [routing section](https://react.dev/learn/build-a-react-app-from-scratch) explains what a router does and points to a few libraries. This lesson uses [React Router](https://reactrouter.com/), the one on Albert's [router page](https://albertprofe.dev/reactjs/reactjs-app-router.html). You add it with npm (Node's package manager):
+React has no router. react.dev's [routing section](https://react.dev/learn/build-a-react-app-from-scratch#routing) explains what a router does and suggests two libraries, React Router and TanStack Router. This lesson uses [React Router](https://reactrouter.com/), the one on Albert's [router page](https://albertprofe.dev/reactjs/reactjs-app-router.html), in what its docs call **declarative mode**: you describe the routes as components inside your JSX. You add it with npm (Node's package manager):
 
 ```bash
 npm install react-router
 ```
 
 > [!NOTE]
-> Albert's router page installs `react-router-dom`, the package name older versions used. Current versions ship everything in `react-router`, and version 8 removed `react-router-dom` altogether, so `react-router` is the name you'll use.
+> Albert's router page installs `react-router-dom`, the name web apps used up to version 6. Version 7 moved everything into `react-router` and kept `react-router-dom` only as a re-export, a second name for the same code. Version 8, the current one, dropped `react-router-dom` ([Upgrading from v7](https://reactrouter.com/upgrading/v7)), so `react-router` is the name you'll use. Plain `npm install`, with no `-D`, lists it under `dependencies` in `package.json`: the packages your app needs when it runs in the browser.
 
 ### 3.2 Styling: CSS's job, through two doors
 
@@ -111,7 +113,7 @@ The browser styles the page with CSS, so React gives you two doors into it:
 
 Which door do you use? react.dev's [guide to CSS styles](https://react.dev/reference/react-dom/components/common#applying-css-styles) recommends classes for most styling and the `style` attribute only when a value depends on your data.
 
-How the CSS file reaches the browser isn't React's business either: react.dev says React doesn't dictate how you add CSS files. In a Vite project, you `import` the CSS file and Vite adds it to the page ([Vite's CSS guide](https://vite.dev/guide/features#css)). Albert's [styling page](https://albertprofe.dev/reactjs/reactjs-app-styling.html) shows a whole shelf of other options, such as Sass, Tailwind and Bootstrap. In the end the browser reads CSS, and React stays out of it. 🎨
+How the CSS file reaches the browser isn't React's business either: react.dev says React doesn't prescribe how you add CSS files. In a Vite project, you `import` the CSS file and Vite adds it to the page ([Vite's CSS guide](https://vite.dev/guide/features#css)). Albert's [styling page](https://albertprofe.dev/reactjs/reactjs-app-styling.html) shows a whole shelf of other options, such as Sass, Tailwind and Bootstrap. In the end the browser reads CSS, and React stays out of it. 🎨
 
 ### 3.3 Data fetching: asking the kitchen
 
@@ -119,7 +121,7 @@ Most apps get their data from a server through an **API** (Application Programmi
 
 The browser already has a tool for this: [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch). It isn't React's. The tricky part is *when* to call it. A component's job is to return JSX quickly, and a network request takes time. React's answer is an **Effect**: code that runs *after* React has put the component on the screen. You'll study Effects properly in [lesson 5.1](05-01-effects.md). Here you'll only use one.
 
-react.dev points out that real apps also need loading states, error states and **caching** (keeping answers so you don't ask twice), which purpose-built data libraries handle for you. Albert's [custom hooks page](https://albertprofe.dev/reactjs/reactjs-hook-custom.html) wraps the fetch in a reusable `useFetch` hook. This lesson stays with plain `fetch`, so you can see every part.
+react.dev's [data fetching section](https://react.dev/learn/build-a-react-app-from-scratch#data-fetching) points out that real apps also need loading states, error states and **caching** (keeping answers so you don't ask twice), which purpose-built data libraries handle for you. Albert's [custom hooks page](https://albertprofe.dev/reactjs/reactjs-hook-custom.html) wraps the fetch in a reusable `useFetch` hook. This lesson stays with plain `fetch`, so you can see every part.
 
 > [!IMPORTANT]
 > React's job ends at **describing the UI**. Routers, CSS and `fetch` plug in through ordinary JavaScript: you import them, use them inside your components, and React keeps rendering as usual.
@@ -156,7 +158,7 @@ export default function App() {
 1. Everything comes from `react-router`, not from `react`. That one import line is the lesson in miniature.
 2. `<BrowserRouter>` wraps the app. It watches the browser's address bar and tells everything inside it which URL is current.
 3. `<Link to="/recipes">` draws a normal link, but when you click it, the router changes the URL *without* reloading the page.
-4. `<Routes>` looks at the current URL and picks the first `<Route>` whose `path` matches it. That route's `element` is what appears.
+4. `<Routes>` looks at the current URL and picks the `<Route>` whose `path` [matches it best](https://reactrouter.com/api/components/Routes). That route's `element` is what appears.
 5. The `<nav>` sits outside `<Routes>`, so it stays on screen for every page.
 
 **`Home.jsx`**
@@ -306,10 +308,16 @@ export default function App() {
 5. On the second draw, the data is there, and you see the dish, the price and the stall.
 
 > [!NOTE]
-> Open the **Network** panel in your browser's developer tools and reload. In development you'll see `special.json` requested twice. That's React's `StrictMode` (the wrapper in `main.jsx`) running Effects twice to help you catch mistakes. The production build asks once. Lessons [1.5](01-05-purity.md) and [5.1](05-01-effects.md) explain why.
+> Open the **Network** panel in your browser's developer tools and reload. In development you'll see `special.json` requested twice. That's React's `StrictMode` (the wrapper in `main.jsx`). In development only, it runs each Effect once, cleans it up, and runs it again, to help you catch Effects that don't clean up after themselves. The production build asks once. Lessons [1.5](01-05-purity.md) and [5.1](05-01-effects.md) explain why.
 
 > [!WARNING]
-> This example is a preview, not a pattern to copy into every app. It has no error state and no caching, and react.dev's [useEffect reference](https://react.dev/reference/react/useEffect#fetching-data-with-effects) adds a cleanup step it leaves out. You'll write it properly in 5.1.
+> This example is a preview, not a pattern to copy into every app. Three things are missing:
+>
+> - **Errors.** Nothing catches a failed request, and `fetch` doesn't treat an answer like *404 Not Found* as a failure; you have to check `response.ok` yourself. Exercise 9.3 shows what happens.
+> - **Cleanup.** react.dev's [useEffect reference](https://react.dev/reference/react/useEffect#fetching-data-with-effects) adds a cleanup function with an `ignore` flag, so a late answer can't overwrite a newer one. That mix-up is called a **race condition**.
+> - **Caching.** Every visit asks the server again.
+>
+> You'll write it properly in 5.1.
 
 ## 7 Back to the whole: a market of neighbours
 
@@ -363,7 +371,7 @@ export default function NotFound() {
 }
 ```
 
-Then import it and add the catch-all route last:
+Then import it and add the catch-all route. Its position in the list doesn't matter: the router ranks the routes, and `*` only wins when nothing more specific matches.
 
 **`App.jsx`**
 
@@ -447,7 +455,7 @@ In **todays-special**, change `'/special.json'` to `'/specials.json'` (with an e
 <details>
 <summary>Solution</summary>
 
-The screen stays on "⏳ Asking the kitchen…" forever. There is no `specials.json`, so Vite's development server answers with the app's `index.html` page instead. `response.json()` can't read HTML as JSON, so the promise fails, and the console shows an error like `Unexpected token '<', "<!doctype "... is not valid JSON`. `setSpecial` is never called, so `special` stays `null`.
+The screen stays on "⏳ Asking the kitchen…" forever. There is no `specials.json`, so Vite's development server answers with the app's `index.html` page instead. `response.json()` can't read HTML as JSON, so the promise fails, and the console shows an error. In Chrome it reads like `Unexpected token '<', "<!doctype "... is not valid JSON`; other browsers word it differently. Notice that `fetch` itself didn't complain: the server did answer, only with the wrong file. `setSpecial` is never called, so `special` stays `null`.
 
 That's the "error state" react.dev talks about: a real app would show a message instead of waiting forever. Data libraries, and the Effects lesson, help with that.
 
@@ -477,11 +485,11 @@ Without looking back, draw React in the middle of a page and its neighbours arou
 - Albert: [React JS App: styling](https://albertprofe.dev/reactjs/reactjs-app-styling.html)
 - Albert: [React JS App: async](https://albertprofe.dev/reactjs/reactjs-app-async.html)
 - Albert: [ReactJS: custom hooks](https://albertprofe.dev/reactjs/reactjs-hook-custom.html) (`useFetch`)
-- react.dev: [Build a React App from Scratch](https://react.dev/learn/build-a-react-app-from-scratch) (routing, data fetching)
+- react.dev: [Build a React App from Scratch](https://react.dev/learn/build-a-react-app-from-scratch) ([routing](https://react.dev/learn/build-a-react-app-from-scratch#routing), [data fetching](https://react.dev/learn/build-a-react-app-from-scratch#data-fetching))
 - react.dev: [Writing Markup with JSX](https://react.dev/learn/writing-markup-with-jsx) (`className`)
 - react.dev: [Common components: applying CSS styles](https://react.dev/reference/react-dom/components/common#applying-css-styles)
 - react.dev: [useEffect: fetching data with Effects](https://react.dev/reference/react/useEffect#fetching-data-with-effects)
-- React Router: [Declarative mode installation](https://reactrouter.com/start/declarative/installation)
+- React Router: [Declarative mode installation](https://reactrouter.com/start/declarative/installation), [`<Routes>`](https://reactrouter.com/api/components/Routes) and [Upgrading from v7](https://reactrouter.com/upgrading/v7) (`react-router-dom` removed)
 - Vite: [CSS](https://vite.dev/guide/features#css) and [the public directory](https://vite.dev/guide/assets#the-public-directory)
 - MDN (Mozilla Developer Network): [Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 - Dave Ceddia: [What React Does (and Doesn't Do)](https://daveceddia.com/what-react-does/) (source of the "Things React does" image)
