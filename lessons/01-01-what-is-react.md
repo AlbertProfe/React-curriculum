@@ -45,7 +45,7 @@ React's big idea fits on a sticky note:
 
 > **You describe *what* the UI should look like for the data you have right now. React works out *how* to change the real screen to match.**
 
-Hold on to that sentence. 🍵 Everything else in this course is a way of making that idea practical. In this lesson you'll meet the first two pieces: **JSX**, the way you write the description, and the **render cycle**, the loop React runs to keep the screen matching it.
+Hold on to that sentence. 🍵 Everything else in this course is a way of making that idea practical. In this lesson you'll meet the first two pieces: **JSX** (short for *JavaScript XML*; XML is a tag-based markup language, a close cousin of HTML), the way you write the description, and the **render cycle**, the loop React runs to keep the screen matching it.
 
 > [!NOTE]
 > I've written React since about 2014, back when components were written as JavaScript *classes*. Today React code is written with **function components** and **Hooks** (React functions whose names start with `use`; you'll meet the first one in Example 2), and that is all you'll see in this course.
@@ -126,7 +126,7 @@ Because they are functions, you can name them, reuse them and combine them. Comp
 
 ### 3.3 JSX: writing the picture of the plate
 
-📘 **JSX**: a **syntax extension for JavaScript** that lets you write HTML-like tags **inside JavaScript**. People often read the name as *JavaScript XML* (XML is a tag-based markup language, a close cousin of HTML), though React's docs call it a syntax extension. It is not HTML: a build tool translates every JSX tag into a JavaScript function call that creates a **React element**.
+📘 **JSX**: a **syntax extension for JavaScript** that lets you write HTML-like tags **inside JavaScript**. It is not HTML: a build tool translates every JSX tag into a JavaScript function call that creates a **React element**.
 
 📘 **React element**: a small, plain JavaScript object that describes one piece of UI, such as "a `<p>` with the text *In stock: 5 kg*". Elements are cheap to create and are only descriptions; on their own they don't touch the screen.
 
