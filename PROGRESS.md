@@ -1,5 +1,7 @@
 # PROGRESS
 
+> **Team paused after lesson 1.4 by Albert, 2026-10-30 14:08 (Europe/Madrid).**
+
 Status values: `planned` → `drafted` (react-writer) → `edited` (react-editor) → `ready for Albert` (react-lead). Albert approves and merges to `main`.
 
 > Curriculum **APPROVED by Albert, 2026-10-30**.
@@ -8,11 +10,11 @@ Status values: `planned` → `drafted` (react-writer) → `edited` (react-editor
 
 | Lesson | File | Status | Notes |
 |---|---|---|---|
-| 1.1 What is React and why is it so relevant? [T 1] | `lessons/01-01-what-is-react.md` | ready for Albert | drafted by react-writer (04d8bef), edited by react-editor (9817e48), 2026-10-30 |
+| 1.1 What is React and why is it so relevant? [T 1] | `lessons/01-01-what-is-react.md` | ready for Albert | drafted by react-writer (04d8bef), edited by react-editor (9817e48), 2026-10-30; 1.1 §6 consistency fix fde056b |
 | 1.2 JSX: describing the UI [T 2] | `lessons/01-02-jsx-describing-the-ui.md` | ready for Albert | drafted by react-writer (5df109c), edited by react-editor (d512daa, c10c770), 2026-10-30; open: raw-html example vs link, name react/jsx-runtime?, §4 screenshot |
 | 1.3 What is not React [T 3] | `lessons/01-03-what-is-not-react.md` | ready for Albert | drafted by react-writer (cd27d06), edited by react-editor (1d95f7a, 9b9cfe0, e0776db, f5f658c), 2026-10-30; open: ~4,300 words, trim or split?; 3 screenshot placeholders |
-| 1.4 React is a component tree rendering [T 4] | `lessons/01-04-component-tree-rendering.md` | planned | assigned to react-writer 2026-10-30 |
-| 1.5 Purity of components [T 19] | `lessons/01-05-purity.md` | planned | Moved from React.md topic 19 (decided by Albert) |
+| 1.4 React is a component tree rendering [T 4] | `lessons/01-04-component-tree-rendering.md` | ready for Albert | drafted by react-writer (b4bba10), edited by react-editor (709aa34, fc42fd2), 2026-10-30; open: screenshot placeholders §4/§5; examples lack .gitignore |
+| 1.5 Purity of components [T 19] | `lessons/01-05-purity.md` | planned | not assigned; team paused by Albert 2026-10-30 |
 | 2.1 Passing props to a component [T 5] | `lessons/02-01-passing-props.md` | planned |  |
 | 2.2 Conditional rendering [T 6] | `lessons/02-02-conditional-rendering.md` | planned |  |
 | 2.3 Rendering lists [T 7] | `lessons/02-03-rendering-lists.md` | planned |  |

@@ -62,3 +62,9 @@ Dated log of team decisions. Newest at the bottom. "Pending Albert" = needs his 
 29. **1.3 §3.2 lists UI component libraries:** MUI, Ant Design, Semantic UI React (with a React 19 caution), shadcn/ui, React Aria. *Decided by Albert.*
 30. **React Router is installed as `npm i react-router`** (v8; no `react-router-dom`, no `-D`). *Decided by Albert.*
 31. **Albert will update his own router page** ([app-router](https://albertprofe.dev/reactjs/reactjs-app-router.html)); the course does not change it. *Decided by Albert.*
+
+### 2026-10-30 14:08 (Europe/Madrid) — Pause and lesson 1.4 (decided by Albert, as relayed by Grok Bot and react-editor)
+
+32. **Finish only lesson 1.4, then pause the team.** No further lessons (1.5 onward) are assigned until Albert resumes. *Decided by Albert.*
+33. **Albert will fix the arrow-function performance claim** on his components page ([what-components](https://albertprofe.dev/reactjs/reactjs-what-components.html) §5) himself. *Decided by Albert.*
+34. **Keep the React.md mention in lesson 1.4.** *Decided by Albert.*
