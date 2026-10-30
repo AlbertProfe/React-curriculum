@@ -14,3 +14,13 @@ Dated log of team decisions. Newest at the bottom. "Pending Albert" = needs his 
 8. **Format:** English, plain GitHub markdown; callouts as GitHub alerts (`> [!NOTE]` etc.) so they can be mapped to Quarto callouts later. Filename shown as a bold label above code blocks, matching Albert's habit.
 9. **Modern defaults:** React 19, `createRoot`, Vite; no create-react-app (deprecated 2025-02-14), no `ReactDOM.render` (removed in React 19), no class components, no `Context.Consumer`. Links go to react.dev, not `beta.reactjs.org`/`reactjs.org`.
 10. **Status flow:** planned → drafted → edited → ready for Albert (tracked in `PROGRESS.md`). All 20 lessons start as `planned`; no drafting until the curriculum is approved.
+
+### 2026-10-30 (later) — Albert's answers to the open questions (decided by Albert)
+
+11. **Purity moves into Foundation** as lesson 1.5 (`lessons/01-05-purity.md`), right after "React is a component tree rendering"; it keeps its React.md topic number (19). Module 05 becomes "Side effects". Replaces the placement in decision 3. *Decided by Albert.*
+12. **"What is not React" (1.3) briefly teaches** routing, styling and data fetching: a short intro and one tiny example each, not just a list of names. Goals updated. Partly replaces decision 4. *Decided by Albert.*
+13. **One optional lesson added:** "You Might Not Need an Effect" as 5.2 (`lessons/05-02-you-might-not-need-an-effect.md`), after Effects (now 5.1, `lessons/05-01-effects.md`). **No refs lesson.** Total: 21 lessons (20 core + 1 optional). *Decided by Albert.*
+14. **Labs are a separate track.** Lessons don't end with lab exercises; they keep their own small "Try it" exercises. *Decided by Albert.*
+15. **Vite is the only recommended setup.** No CRA and no other build tools or frameworks in lessons. *Decided by Albert.*
+16. **Lessons are plain GitHub markdown** (confirms decision 8). *Decided by Albert.*
+17. Curriculum status stays **PROPOSED – awaiting Albert's final approval**. STYLE-GUIDE.md and LESSON-TEMPLATE.md unchanged (persona changes on hold).

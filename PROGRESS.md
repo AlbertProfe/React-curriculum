@@ -2,27 +2,30 @@
 
 Status values: `planned` → `drafted` (react-writer) → `edited` (react-editor) → `ready for Albert` (react-lead). Albert approves and merges to `main`.
 
-> Curriculum itself is **PROPOSED – awaiting Albert's approval** (2026-10-30). No lesson is drafted before approval.
+> Curriculum is **PROPOSED – awaiting Albert's final approval** (open questions answered 2026-10-30). No lesson is drafted before approval.
+
+21 lessons: 20 core + 1 optional. `[T n]` = React.md topic number. Labs are a separate track and not tracked here.
 
 | Lesson | File | Status | Notes |
 |---|---|---|---|
-| 1.1 What is React and why is it so relevant? | `lessons/01-01-what-is-react.md` | planned |  |
-| 1.2 JSX: describing the UI | `lessons/01-02-jsx-describing-the-ui.md` | planned |  |
-| 1.3 What is not React | `lessons/01-03-what-is-not-react.md` | planned | Scope question open (Q2 in CURRICULUM.md) |
-| 1.4 React is a component tree rendering | `lessons/01-04-component-tree-rendering.md` | planned | "UI as a tree" framing to write fresh |
-| 2.1 Passing props to a component | `lessons/02-01-passing-props.md` | planned |  |
-| 2.2 Conditional rendering | `lessons/02-02-conditional-rendering.md` | planned |  |
-| 2.3 Rendering lists | `lessons/02-03-rendering-lists.md` | planned |  |
-| 2.4 Events and handlers: passing and calling | `lessons/02-04-events-and-handlers.md` | planned |  |
-| 3.1 State: a component's memory | `lessons/03-01-state-component-memory.md` | planned |  |
-| 3.2 Render and commit | `lessons/03-02-render-and-commit.md` | planned |  |
-| 3.3 State as a snapshot | `lessons/03-03-state-as-snapshot.md` | planned |  |
-| 3.4 Queueing a series of state updates | `lessons/03-04-queueing-state-updates.md` | planned |  |
-| 3.5 Objects in state | `lessons/03-05-objects-in-state.md` | planned | Needs state-specific object example |
-| 3.6 Arrays in state | `lessons/03-06-arrays-in-state.md` | planned |  |
-| 3.7 Sharing state between components | `lessons/03-07-sharing-state.md` | planned | Gap: no dedicated Albert page; new material needed |
-| 3.8 Preserving and resetting state | `lessons/03-08-preserving-resetting-state.md` | planned | Gap: no Albert page; new material needed |
-| 4.1 Reducer | `lessons/04-01-reducer.md` | planned |  |
-| 4.2 Context | `lessons/04-02-context.md` | planned |  |
-| 5.1 Purity of components | `lessons/05-01-purity.md` | planned | Placement question open (Q1 in CURRICULUM.md) |
-| 5.2 Effects | `lessons/05-02-effects.md` | planned |  |
+| 1.1 What is React and why is it so relevant? [T 1] | `lessons/01-01-what-is-react.md` | planned |  |
+| 1.2 JSX: describing the UI [T 2] | `lessons/01-02-jsx-describing-the-ui.md` | planned |  |
+| 1.3 What is not React [T 3] | `lessons/01-03-what-is-not-react.md` | planned | Briefly teaches routing, styling, data fetching (one tiny example each) |
+| 1.4 React is a component tree rendering [T 4] | `lessons/01-04-component-tree-rendering.md` | planned | "UI as a tree" framing to write fresh |
+| 1.5 Purity of components [T 19] | `lessons/01-05-purity.md` | planned | Moved from React.md topic 19 (decided by Albert) |
+| 2.1 Passing props to a component [T 5] | `lessons/02-01-passing-props.md` | planned |  |
+| 2.2 Conditional rendering [T 6] | `lessons/02-02-conditional-rendering.md` | planned |  |
+| 2.3 Rendering lists [T 7] | `lessons/02-03-rendering-lists.md` | planned |  |
+| 2.4 Events and handlers: passing and calling [T 8] | `lessons/02-04-events-and-handlers.md` | planned |  |
+| 3.1 State: a component's memory [T 9] | `lessons/03-01-state-component-memory.md` | planned |  |
+| 3.2 Render and commit [T 10] | `lessons/03-02-render-and-commit.md` | planned |  |
+| 3.3 State as a snapshot [T 11] | `lessons/03-03-state-as-snapshot.md` | planned |  |
+| 3.4 Queueing a series of state updates [T 12] | `lessons/03-04-queueing-state-updates.md` | planned |  |
+| 3.5 Objects in state [T 13] | `lessons/03-05-objects-in-state.md` | planned | Needs state-specific object example |
+| 3.6 Arrays in state [T 14] | `lessons/03-06-arrays-in-state.md` | planned |  |
+| 3.7 Sharing state between components [T 15] | `lessons/03-07-sharing-state.md` | planned | Gap: no dedicated Albert page; new material needed |
+| 3.8 Preserving and resetting state [T 16] | `lessons/03-08-preserving-resetting-state.md` | planned | Gap: no Albert page; new material needed |
+| 4.1 Reducer [T 17] | `lessons/04-01-reducer.md` | planned |  |
+| 4.2 Context [T 18] | `lessons/04-02-context.md` | planned |  |
+| 5.1 Effects [T 20] | `lessons/05-01-effects.md` | planned |  |
+| 5.2 (Optional) You might not need an effect [not in React.md] | `lessons/05-02-you-might-not-need-an-effect.md` | planned | Optional lesson; not in React.md; no Albert page |
