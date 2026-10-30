@@ -3,7 +3,7 @@ lesson: "01-04"
 title: "React is a component tree rendering"
 module: "01 — Foundation: what React actually is"
 react-md-topic: 4
-status: drafted
+status: edited
 sources:
   albert:
     - https://albertprofe.dev/reactjs/reactjs-what-components.html
@@ -55,7 +55,7 @@ There is a second, quieter problem. When one number on the screen changes, say t
 You met components in [lesson 1.1, section 3.2](01-01-what-is-react.md#32-components-the-stalls-of-your-market). The recipe has three parts:
 
 1. a JavaScript `function` whose name starts with a **capital letter**
-2. that **returns JSX**, the description of a piece of UI (user interface)
+2. that **returns JSX** (the HTML-like syntax from [lesson 1.2](01-02-jsx-describing-the-ui.md)), the description of a piece of UI (user interface)
 3. and is **used** inside other components as a tag: `<MarketSign />`
 
 ![Code of a Profile component annotated in three steps: create and define a JavaScript function, use it as a React component inside Gallery, and export Gallery so it can be imported everywhere](https://albertprofe.dev/images/reactjs/component-using.png)
@@ -134,7 +134,7 @@ You may still see the tree React keeps in memory called the **virtual DOM**, and
 
 ## 4 Example 1: the market hall in three files
 
-Here is the market split into files: [market-hall on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-04/market-hall). The `main.jsx` file is the same one you met in 1.1, so it isn't shown again.
+Here is the market split into files: open [market-hall on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-04/market-hall) (the online editor that runs the whole project in your browser). The `main.jsx` file is the same one you met in 1.1, so it isn't shown again.
 
 **`App.jsx`**
 
@@ -305,7 +305,7 @@ That last point explains several rules you'll meet later. Components should give
 
 ## 8 Try it
 
-Three exercises use the two examples. Fork them on StackBlitz, or download them and run `npm install` and `npm run dev` (npm is the package manager that comes with Node.js).
+Exercises 8.1 to 8.4 use the two examples. Fork them on StackBlitz, or download them and run `npm install` and `npm run dev` (npm is the package manager that comes with Node.js).
 
 ### 8.1 Open a flower stall 💐
 
@@ -354,7 +354,7 @@ import { useState } from 'react';
 export default function App() {
   const [customers, setCustomers] = useState(0);
 
-  function NameTag() {
+  function NameTag() { // ❌ defined inside App
     return (
       <p>
         <label>
@@ -407,7 +407,7 @@ Render tree: `App` with one child, `NameTag`. Module tree: `main.jsx` → `App.j
 <summary>Some points to bring</summary>
 
 1. React itself doesn't know about HTML; `react-dom` does. The same tree of components could be shown by another host, such as a mobile app. And for most questions ("what re-renders when this changes?"), components are the useful level.
-2. One per file is easy to find and to import anywhere. Small, private helpers like `Cherries` can sit next to the only component that uses them, as react.dev also allows. Move one out when a second file needs it.
+2. One per file is quick to find and to import anywhere. Small, private helpers like `Cherries` can sit next to the only component that uses them, as react.dev also allows. Move one out when a second file needs it.
 
 </details>
 
