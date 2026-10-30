@@ -3,7 +3,7 @@ lesson: "01-02"
 title: "JSX: describing the UI"
 module: "01 — Foundation: what React actually is"
 react-md-topic: 2
-status: drafted
+status: edited
 sources:
   albert:
     - https://albertprofe.dev/reactjs/reactjs-what-jsx.html
@@ -17,7 +17,7 @@ sources:
 
 📘 **JSX**
 
-JSX is a syntax extension for JavaScript: it lets you write HTML-like tags inside a JavaScript file to **describe what a component shows**. A build tool then turns every tag into plain JavaScript. 🏷️
+JSX is a syntax extension for JavaScript: it lets you write tags that look like HTML (HyperText Markup Language, the tag language of every web page) inside a JavaScript file to **describe what a component shows**. A build tool then turns every tag into plain JavaScript. 🏷️
 
 ---
 
@@ -32,11 +32,11 @@ JSX is a syntax extension for JavaScript: it lets you write HTML-like tags insid
 
 ## 1 Overview
 
-In lesson 1.1 you already wrote JSX without much ceremony: `<li>🍅 Tomatoes · 2.50 € / kg</li>` inside a function. It looked like HTML (HyperText Markup Language, the tag language of every web page), and it worked. Now it's time to look at it properly, the way a cook looks at a knife after using it for a week. 🔪
+In [lesson 1.1](01-01-what-is-react.md) you met JSX and wrote it without much ceremony: `<li>🍅 Tomatoes · 2.50 € / kg</li>` inside a function. It looked like HTML, and it worked. Now it's time to look at it properly, the way a cook looks at a knife after using it for a week. 🔪 JSX is how a React component describes its **UI** (user interface: everything on the screen that people see and touch), so this is the vocabulary you'll use in every lesson from here on.
 
 Why tags inside JavaScript at all? For years, web developers kept **content** in HTML files, **design** in CSS files (Cascading Style Sheets, the language for colours and layout) and **logic** in JavaScript files. That split works for a page that rarely changes. In an app whose screen depends on data, the logic and the markup are always talking to each other, and keeping them in different files is like keeping the recipe in one kitchen and the ingredients in another. Albert's [JSX page, §2–3](https://albertprofe.dev/reactjs/reactjs-what-jsx.html) makes the case: in React, **a component keeps its data, its logic and its markup together**, in one self-contained piece.
 
-![An Avatar component annotated in three colours: a blue box around the whole function, green for the JavaScript data (an image URL and a description), an orange box around the returned JSX, and a smaller blue box around src and alt, labelled "Inject data JS"](https://albertprofe.dev/images/reactjs/react-is-jsx.png)
+![An Avatar component annotated in three colours: a blue box around the whole function, green for the JavaScript data (an image address and a description), an orange box around the returned JSX, and a smaller blue box around src and alt, labelled "Inject data JS"](https://albertprofe.dev/images/reactjs/react-is-jsx.png)
 
 *One component, three jobs: JavaScript for data and logic (green), JSX for the markup (orange), and curly braces that inject the data into the markup (blue). Diagram from Albert's [JSX page, §3](https://albertprofe.dev/reactjs/reactjs-what-jsx.html).*
 
@@ -46,7 +46,7 @@ Keep that picture in mind. By the end of this lesson you'll be able to read ever
 
 Imagine you find a recipe card on an old website and want to turn it into a React component. Here is its HTML. It is valid HTML, and any browser shows it happily.
 
-**`recipe.html`**
+**`index.html`** (the whole raw-html example)
 
 ```html
 <!doctype html>
@@ -65,11 +65,11 @@ Imagine you find a recipe card on an old website and want to turn it into a Reac
 <label for="toasted">The bread is toasted</label>
 ```
 
-You can open it from the [recipe-card example](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-02/recipe-card) by adding `/recipe.html` to the preview address.
+Open the [raw-html example on StackBlitz](https://stackblitz.com/github/AlbertProfe/React-curriculum/tree/drafts/examples/01-02/raw-html): it holds nothing but this one file, and the preview shows the card exactly as the browser reads it. No React involved yet.
 
 **Question for you:** 🤔 copy everything from `<h2>` to `</label>` into a component's `return ( ... )`. Will it work? Look for three habits that HTML forgives and a JavaScript file might not.
 
-If you try it, Vite stops with an error before anything reaches the screen. HTML browsers are generous hosts: they close your `<li>` tags for you and accept `<br>` with no partner. JSX is stricter, because it is not HTML. It has to become JavaScript, and JavaScript needs everything spelled out.
+If you try it, Vite stops with an error before anything reaches the screen. Browsers are generous hosts with HTML: they close your `<li>` tags for you, and in HTML a `<br>` never needed a partner anyway. JSX is stricter, because it is not HTML. It has to become JavaScript, and JavaScript needs everything spelled out.
 
 ## 3 The solution: the three rules of JSX, and one window
 
@@ -87,10 +87,10 @@ Albert's [JSX page, §5](https://albertprofe.dev/reactjs/reactjs-what-jsx.html) 
 
 **Why close every tag?** HTML guesses where an unclosed tag ends; JSX never guesses. Tags with content need a closing tag, and tags with no content (like `<br>`, `<hr>`, `<img>`, `<input>`) close themselves with a slash: `<br />`.
 
-**Why camelCase?** **camelCase** means joining words and starting each new one with a capital: `tabIndex`, `onClick`. JSX attributes become keys of a JavaScript object, and JavaScript names can't contain dashes. Two names change completely, because they are **reserved words** in JavaScript (words the language keeps for itself): `class` becomes `className`, and `for` becomes `htmlFor`.
+**Why camelCase?** **camelCase** means joining words and starting each new one with a capital: `tabIndex`, `onClick`. JSX attributes become keys of a JavaScript object, and your components will often read those keys into variables. JavaScript variable names can't contain dashes, and they can't be **reserved words** (words the language keeps for itself). That's why two names change completely: `class` becomes `className`, and `for` becomes `htmlFor`. Both new names come from the browser's own JavaScript properties for the same attributes.
 
 > [!NOTE]
-> There is a historical exception: `aria-*` attributes (for accessibility) and `data-*` attributes keep their dashes, exactly as in HTML.
+> There is a historical exception: `aria-*` attributes and `data-*` attributes keep their dashes, exactly as in HTML. ARIA (Accessible Rich Internet Applications) is the set of attributes that tells screen readers and other assistive tools what an element is for, such as `aria-label`; `data-*` attributes carry your own extra data, such as `data-dish`.
 
 > [!TIP]
 > Converting a big piece of HTML by hand gets tedious. react.dev points to an online [HTML-to-JSX converter](https://transform.tools/html-to-jsx). Use it, then read the result so you understand every change.
@@ -257,7 +257,7 @@ createRoot(document.getElementById('root')).render(
 ```
 
 1. A line of JSX is stored in a normal `const`, because it *is* a normal JavaScript value.
-2. `console.log` prints it in the browser's console (in StackBlitz, open the **Console** panel below the preview). You'll see an object with `type: "h2"` and `props: { className: "title", children: "Pa amb tomàquet" }`, plus a few fields with odd names that React uses internally.
+2. `console.log` prints it in the browser's console (in StackBlitz, open the **Console** panel below the preview). You'll see an object with `type: "h2"` and `props: { className: "title", children: "Pa amb tomàquet" }`, plus `key: null` and a few fields with odd names that React uses internally.
 
 This is the journey from Albert's course outline, now with something you've seen at every step:
 
@@ -442,7 +442,7 @@ JSX `<h2 className="title">Escalivada</h2>` → a call like `createElement('h2',
 <details>
 <summary>Points to consider</summary>
 
-1. It *looks* like HTML, but it follows JavaScript's rules (closed tags, one root, camelCase, reserved words) and becomes JavaScript objects. "A description that looks like HTML" is closer.
+1. It *looks* like HTML, but it becomes JavaScript objects, so it follows stricter rules (one root, closed tags, camelCase, no reserved words such as `class`). "A description that looks like HTML" is closer.
 2. The renaming follows from JSX becoming JavaScript objects. Ask what the alternative would cost: special cases in the language, or confusing errors.
 3. It works, and the jsx-to-elements example proves it. Compare how easy each version is to read once a component has ten nested tags.
 
