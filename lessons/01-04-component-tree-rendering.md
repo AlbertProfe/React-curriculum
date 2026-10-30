@@ -30,7 +30,7 @@ A React app is **one tree of components**, with your root component at the top. 
 - write a function component and split components into their own files with `export` and `import`
 - choose between a **default** and a **named** export
 - draw the **render tree** of a small app, and tell it apart from its **module tree**
-- describe the four render steps in React.md and match them to react.dev's **trigger → render → commit**
+- describe the four render steps in the course outline, [React.md](../React.md), and match them to react.dev's **trigger → render → commit**
 
 **Before you start:** [lesson 1.1](01-01-what-is-react.md) (sections 3.2, components, and 3.4, the render cycle) and [lesson 1.2](01-02-jsx-describing-the-ui.md) (section 6, from JSX to the tree). If `import` and `export` are new to you, read Albert's [import modules page](https://albertprofe.dev/reactjs/reactjs-es6-import.html) first. ⏱️ About 40 minutes, exercises included.
 
@@ -89,14 +89,14 @@ A common habit, which react.dev also describes: default export when the file hol
 
 Now draw the app. You can draw two different trees, and both are useful.
 
-The **render tree** has one node per component that React renders. The root is your root component. There are no `<h1>` or `<ul>` nodes in it: react.dev leaves the HTML (HyperText Markup Language) tags out because React also runs in places with no HTML at all, such as phone apps ([The Render Tree](https://react.dev/learn/understanding-your-ui-as-a-tree#the-render-tree)). In 1.2 you drew the tree of elements, tags included; the render tree zooms out to components only.
+The **render tree** has one node per component that React renders. The root is your root component. There are no `<h1>` or `<ul>` nodes in it: react.dev leaves the HTML (HyperText Markup Language) tags out because React also runs in places with no HTML at all, such as mobile or desktop apps ([The Render Tree](https://react.dev/learn/understanding-your-ui-as-a-tree#the-render-tree)). In 1.2 you drew the tree of elements, tags included; the render tree zooms out to components only.
 
 Two names for positions in it:
 
-- **top-level components** sit close to the root. Everything below them depends on them.
-- **leaf components** have no children. They are often the ones that change most.
+- **top-level components** sit close to the root. They affect how fast everything below them renders.
+- **leaf components** have no child components. They are often re-rendered frequently.
 
-The **module tree** (react.dev calls it the [module dependency tree](https://react.dev/learn/understanding-your-ui-as-a-tree#the-module-dependency-tree)) has one node per **file**, and each branch is an `import`. Its root is the entry file, `main.jsx` in a Vite project (Vite is the build tool you met in [lesson 1.1](01-01-what-is-react.md)). Build tools use this tree to decide which files go into the code the browser downloads.
+The **module tree** (react.dev calls it the [module dependency tree](https://react.dev/learn/understanding-your-ui-as-a-tree#the-module-dependency-tree)) has one node per **file**, and each branch is an `import`. Its root is the entry file, `main.jsx` in a Vite project (Vite is the build tool you met in [lesson 1.1](01-01-what-is-react.md)). Files that hold no component, such as a list of prices, appear in it too. Build tools use this tree to decide which files go into the code the browser downloads.
 
 The render tree is about **what is on the screen right now**. The module tree is about **how your code is stored**. Example 1 shows the same app as both.
 
@@ -119,15 +119,18 @@ flowchart LR
 ```
 
 - **Trigger.** There are two reasons to render. The first is the initial load, when `main.jsx` calls `createRoot(...).render(<App />)`. The second is a state change in a component, or in one of its parents.
-- **Render.** On the first load, React calls the root component. On later renders, it calls the component whose state changed. Either way it keeps going **down the tree**: if a component returns `<NameTag />`, React calls `NameTag` too, and so on to the leaves.
-- **Commit.** On the first load, React creates all the DOM nodes. On later renders it changes **only the nodes that differ** from last time, and leaves the rest alone.
+- **Render.** On the first load, React calls the root component and creates the DOM nodes for everything it returns. On later renders, it calls the component whose state changed, and works out which parts differ from last time. Either way it keeps going **down the tree**: if a component returns `<NameTag />`, React calls `NameTag` too, and so on to the leaves.
+- **Commit.** On the first load, React puts all the DOM nodes it created onto the page. On later renders it applies **only the changes it worked out during render**, and leaves the rest alone.
 
-Then the browser repaints the screen.
+Then the browser **paints** the screen. react.dev uses the word *painting* for this step, to keep it apart from React's render.
+
+> [!NOTE]
+> The examples' `main.jsx` wraps `<App />` in `<StrictMode>`. In development, Strict Mode makes React call each component function **twice**, to help you find mistakes. You'll see why that matters in [lesson 1.5](01-05-purity.md).
 
 > [!TIP]
 > A market picture to hold on to: **trigger** is a price change. **Render** is Tom rewriting his price list on a notepad and checking it against yesterday's. **Commit** is him walking to the stall and replacing only the labels that changed, not every sign in the hall. 🏷️
 
-You may still see this comparison called the **virtual DOM**, as in 1.1 section 6 and Albert's [render and virtual DOM page](https://albertprofe.dev/reactjs/reactjs-what-render-dom.html). Treat that as background. Trigger, render and commit are the words to think with, and [lesson 3.2](03-02-render-and-commit.md) takes them further.
+You may still see the tree React keeps in memory called the **virtual DOM**, and the comparison called *diffing*, as in 1.1 section 6 and Albert's [render and virtual DOM page](https://albertprofe.dev/reactjs/reactjs-what-render-dom.html). These are community words; react.dev's Render and Commit page doesn't use them. Treat them as background. Trigger, render and commit are the words to think with, and [lesson 3.2](03-02-render-and-commit.md) takes them further.
 
 ## 4 Example 1: the market hall in three files
 
@@ -276,10 +279,10 @@ Type your name into the box, then click the button a few times. The count goes u
 Follow one click through the steps:
 
 1. **Trigger:** the click calls `setCustomers`, and `App`'s state changes.
-2. **Render:** React calls `App`, and because `App` returns `<NameTag />`, it calls `NameTag` as well. Both functions run again.
-3. **Commit:** React compares the new tree with the old one. The heading's text is different, so React updates that text. `NameTag` returned the same `<input>` in the same place, so React **keeps the input it already has**, with your typing inside.
+2. **Render:** React calls `App`, and because `App` returns `<NameTag />`, it calls `NameTag` as well. Both functions run again. React compares the new tree with the old one: only the heading's text is different. `NameTag` returned the same `<input>` in the same place.
+3. **Commit:** React updates the heading's text and nothing else. It **keeps the input it already has**, with your typing inside.
 
-So "React re-rendered `NameTag`" does **not** mean "React rebuilt the box". Rendering is calling functions; changing the page happens only at commit, and only where needed.
+So "React re-rendered `NameTag`" does **not** mean "React rebuilt the box". Rendering is calling functions; changing the page happens only at commit, and only where needed. react.dev's [Render and Commit](https://react.dev/learn/render-and-commit#step-3-react-commits-changes-to-the-dom) page shows the same thing with a clock and a text box.
 
 Check it yourself. Open your browser's developer tools (F12 in Chrome), go to the **Console** tab, and type `const box = document.querySelector('input')`. Click the button, then type `box === document.querySelector('input')`. You get `true`: the same input node, before and after.
 
@@ -298,7 +301,7 @@ That last point explains several rules you'll meet later. Components should give
 - A component is a capitalised `function` that returns JSX. Define it at the top level of a file.
 - **Default export:** one per file, imported with any name. **Named exports:** many per file, imported by their exact name in `{ }`.
 - The **render tree** has components only, with the root component on top; the **module tree** has files linked by `import`, with the entry file on top.
-- React.md's four steps fit into **trigger → render → commit**: rendering is React calling your components, and commit changes only the DOM nodes that differ.
+- React.md's four steps fit into **trigger → render → commit**: rendering is React calling your components and working out what changed; commit changes only the DOM nodes that differ; then the browser paints.
 
 ## 8 Try it
 
@@ -335,7 +338,7 @@ In `App.jsx`, change `<MarketSign />` to `<marketSign />`. What do you see, and 
 <details>
 <summary>Answer</summary>
 
-The sign disappears. A lowercase tag tells React "this is an HTML tag", so React asks the browser for an element called `marketsign`, which shows nothing. Your component never runs. In Chrome's console, React warns that `<marketSign />` is using incorrect casing ("Use PascalCase for React components, or lowercase for HTML elements"; PascalCase means a capital letter at the start of every word) and that the tag is unrecognised in this browser. The fix is the capital letter.
+The sign disappears. A lowercase tag tells React "this is an HTML tag", so React asks the browser for an element called `marketsign`, which shows nothing. Your component never runs. In Chrome's console, React logs two errors: one says that `<marketSign />` is using incorrect casing ("Use PascalCase for React components, or lowercase for HTML elements"; PascalCase means a capital letter at the start of every word) and the other that the tag is unrecognized in this browser. The fix is the capital letter.
 
 </details>
 
@@ -380,7 +383,7 @@ Type your name and click. What happens to your name? Try it to check.
 <details>
 <summary>Answer</summary>
 
-Your name is wiped on every click. Each render of `App` creates a **brand-new** `NameTag` function. At commit, React sees a different component in that place, so it throws away the old box and builds a new, empty one. The `box === document.querySelector('input')` check from section 5 now gives `false`. The fix is the original code: `NameTag` at the top level of its own file. [Lesson 3.8](03-08-preserving-resetting-state.md) explains this rule in depth.
+Your name is wiped on every click. Each render of `App` creates a **brand-new** `NameTag` function. When React compares the trees, it finds a different component in the same place. So it removes the old `NameTag` and everything below it, state and DOM nodes included, and creates a new one with an empty box. react.dev puts it this way: a different component in the same position resets all the state below it ([Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state#different-components-at-the-same-position-reset-state)). The `box === document.querySelector('input')` check from section 5 now gives `false`. The fix is the original code: `NameTag` at the top level of its own file. [Lesson 3.8](03-08-preserving-resetting-state.md) explains this rule in depth.
 
 </details>
 
@@ -391,7 +394,7 @@ On paper, draw the render tree and the module tree of **commit-only-changes**. W
 <details>
 <summary>Solution</summary>
 
-Render tree: `App` with one child, `NameTag`. Module tree: `main.jsx` → `App.jsx` → `NameTag.jsx`, and `App.jsx` also imports from the `react` package. `NameTag` is the only leaf.
+Render tree: `App` with one child, `NameTag`. Module tree: `main.jsx` → `App.jsx` → `NameTag.jsx`. `main.jsx` also imports from the `react` and `react-dom/client` packages, and `App.jsx` from `react`. `NameTag` is the only leaf.
 
 </details>
 
@@ -403,7 +406,7 @@ Render tree: `App` with one child, `NameTag`. Module tree: `main.jsx` → `App.j
 <details>
 <summary>Some points to bring</summary>
 
-1. React itself doesn't know about HTML; `react-dom` does. The same tree of components could be shown by another host, such as a phone app. And for most questions ("what re-renders when this changes?"), components are the useful level.
+1. React itself doesn't know about HTML; `react-dom` does. The same tree of components could be shown by another host, such as a mobile app. And for most questions ("what re-renders when this changes?"), components are the useful level.
 2. One per file is easy to find and to import anywhere. Small, private helpers like `Cherries` can sit next to the only component that uses them, as react.dev also allows. Move one out when a second file needs it.
 
 </details>
