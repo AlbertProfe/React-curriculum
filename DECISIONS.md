@@ -36,3 +36,14 @@ Dated log of team decisions. Newest at the bottom. "Pending Albert" = needs his 
     - Emoji may be used freely.
     - No note about Tom in README.md.
 20. **On hold:** updating STYLE-GUIDE.md and LESSON-TEMPLATE.md to reflect decision 19 waits for Albert's go-ahead. Until then both files stay unchanged.
+
+### 2026-10-30 — Albert's answers as relayed by react-editor (decided by Albert)
+
+21. **Mermaid diagrams** render on the platform; lessons may use them. *Decided by Albert.*
+22. **`<details>` collapsibles** render on the platform; lessons may use them. *Decided by Albert.*
+23. **Images from albertprofe.dev stay hotlinked** for now (not copied into the repo). *Decided by Albert.*
+24. **"JavaScript XML"** only at the first mention of JSX; after that, just "JSX". *Decided by Albert.*
+
+### 2026-10-30 — Lead decision (react-lead)
+
+25. **Keep `package-lock.json` in `examples/`** so runnable examples install reproducibly.
