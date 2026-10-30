@@ -115,6 +115,16 @@ Which door do you use? react.dev's [guide to CSS styles](https://react.dev/refer
 
 How the CSS file reaches the browser isn't React's business either: react.dev says React doesn't prescribe how you add CSS files. In a Vite project, you `import` the CSS file and Vite adds it to the page ([Vite's CSS guide](https://vite.dev/guide/features#css)). Albert's [styling page](https://albertprofe.dev/reactjs/reactjs-app-styling.html) shows a whole shelf of other options, such as Sass, Tailwind and Bootstrap. In the end the browser reads CSS, and React stays out of it. 🎨
 
+React doesn't ship ready-made pieces either: there is no button, dialog or menu in the `react` package. Those come from a **UI component library**, a package of components someone else has already built and styled, which you import and use like your own. Many also handle **accessibility** (making a component usable with a keyboard or a screen reader). A few well-known ones:
+
+| Library | What you get |
+| --- | --- |
+| [MUI (Material UI)](https://mui.com/material-ui/) | A large set of components that follow Google's Material Design |
+| [Ant Design](https://ant.design/) | A design language and component set aimed at business apps |
+| [Semantic UI React](https://react.semantic-ui.com/) | The React version of Semantic UI, on Albert's styling page. Its latest stable release, 2.1.5 (December 2023), lists React 16–18 as supported, so check it before you use it with React 19 |
+| [shadcn/ui](https://ui.shadcn.com/) | Not a package you install: you copy each component's code into your project (its command-line tool does it for you), then edit it as your own |
+| [React Aria](https://react-spectrum.adobe.com/react-aria/) | Adobe's components with the behaviour and accessibility built in and no styles, so the look is up to you |
+
 ### 3.3 Data fetching: asking the kitchen
 
 Most apps get their data from a server through an **API** (Application Programming Interface), a set of addresses a program can ask for data. The request travels over **HTTP** (HyperText Transfer Protocol), the same protocol your browser uses for web pages, and the answer often comes back as **JSON** (JavaScript Object Notation), text that looks like a JavaScript object.
