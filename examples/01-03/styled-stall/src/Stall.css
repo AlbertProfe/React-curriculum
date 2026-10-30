@@ -1,0 +1,28 @@
+.stall {
+  max-width: 18rem;
+  padding: 1rem;
+  border: 2px solid darkred;
+  border-radius: 12px;
+  font-family: sans-serif;
+}
+
+.stall h2 {
+  margin-top: 0;
+}
+
+.price {
+  font-weight: bold;
+  color: darkgreen;
+}
+
+.ripeness {
+  height: 0.75rem;
+  border-radius: 6px;
+  background: #eee;
+}
+
+.ripeness-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: crimson;
+}
